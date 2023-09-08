@@ -1,14 +1,29 @@
-grades=[]
-while True:
-    grade = input("Input:")
-    if grade == "-1":
-        break
-    grades.append(grade)
+class Person:
+    def __init__(self, fname, lname):
+        self.firstname = fname
+        self.lastname = lname
 
-print(grades)
+    def printname(self):
+        print(self.firstname, self.lastname)
 
-print("\nContinue\n")
+# Use the Person class to create an object, and then execute the printname method:
 
-tb = int(sum(grades) / len(grades))
 
-print(tb)
+class Student(Person):
+    def __init__(self, fname, lname):
+        super().__init__(fname, lname)
+        self.graduationyear = 2019
+
+    def welcome(self):
+        print("Welcome", self.firstname, self.lastname,
+              "to the class of", self.graduationyear)
+####### Demo #########
+
+
+x1 = Person("John", "Doe")
+x1.printname()
+
+
+x = Student("Mike", "Olsen")
+x.printname()
+x.welcome()
