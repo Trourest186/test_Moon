@@ -1,29 +1,38 @@
-class Person:
-    def __init__(self, fname, lname):
-        self.firstname = fname
-        self.lastname = lname
+import mysql.connector
 
-    def printname(self):
-        print(self.firstname, self.lastname)
+# Thay thế các giá trị sau bằng thông tin của cơ sở dữ liệu RDS của bạn
+host = 'localhost'
+user = 'root'
+password = '12345678'
 
-# Use the Person class to create an object, and then execute the printname method:
+try:
+    # Kết nối tới cơ sở dữ liệu
+    connection = mysql.connector.connect(
+        host=host,
+        user=user,
+        password=password,
+    )
 
+    if connection.is_connected():
+        print("Kết nối thành công vào RDS MySQL")
 
-class Student(Person):
-    def __init__(self, fname, lname):
-        super().__init__(fname, lname)
-        self.graduationyear = 2019
+        # Thực hiện các thao tác với cơ sở dữ liệu ở đây
 
-    def welcome(self):
-        print("Welcome", self.firstname, self.lastname,
-              "to the class of", self.graduationyear)
-####### Demo #########
+except Exception as e:
+    print(f"Lỗi kết nối: {e}")
 
+mycursor = connection.cursor()
 
-x1 = Person("John", "Doe")
-x1.printname()
+sql = "INSERT INTO world.city (Name, CountryCode, District, Population) VALUES (%s, %s, %s, %s)"
+val = [
+    ("Tung", "AFG", "Kabol", 94), 
+    ("Trang", "AFG", "Kabol", 94), 
+    ("Duong", "AFG", "Kabol", 94)
+    ]
 
+for i in range(len(val)):
+    mycursor.execute(sql, val[i])
 
-x = Student("Mike", "Olsen")
-x.printname()
-x.welcome()
+connection.commit()
+
+print(mycursor.rowcount, "record inserted.")

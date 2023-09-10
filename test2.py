@@ -1,13 +1,7 @@
-class Animal:
-    def Walk(self, inDistance):
-        print("Animal!")
+val = [
+    ("Tung", "AFG", "Kabol", 94), 
+    ("Trang", "AFG", "Kabol", 94), 
+    ("Duong", "AFG", "Kabol", 94)
+    ]
 
-class Cow(Animal):
-    spots = 12
-    
-    def Walk(self, inDistance):
-        Animal.Walk(inDistance)  # Gọi phương thức Walk của lớp cha Animal
-        print("Spots "  " Distance " + str(inDistance))
-
-test = Cow()
-test.Walk(200)
+print(val[0])
